@@ -153,6 +153,7 @@
     <a href="#how-it-works">How it works</a>
     <a href="#response">Response</a>
     <a href="#compare">Compare</a>
+    <a href="#faq">FAQ</a>
     <a class="nav-cta" href="#contact">Book a walkthrough</a>
   </nav>
 </header>
@@ -370,9 +371,43 @@
     </div>
   </section>
 
-  <!-- ── 07 Contact ───────────────────────────────────── -->
+  <!-- ── 07 FAQ ───────────────────────────────────────── -->
+  <section class="doc-section" id="faq">
+    <div class="rail"><span class="rail-no">07</span><span class="rail-label">FAQ</span></div>
+    <div class="doc-body">
+      <h2>Questions, answered plainly.</h2>
+      <dl class="faq">
+        <div class="faq-item">
+          <dt>What is invariantd?</dt>
+          <dd>invariantd is runtime verification for Linux infrastructure. It verifies every process spawn, file write, network connection, and privilege change on your hosts against formal rules you write, and produces a violation — with its exact causal chain — the moment a rule breaks.</dd>
+        </div>
+        <div class="faq-item">
+          <dt>How is it different from EDR?</dt>
+          <dd>Traditional EDR uses ML models and signatures to guess whether activity looks suspicious, producing 85–95% false positives. invariantd evaluates formal rules, so a violation is a fact, not a probability — 0% false positives by construction — and the alert names exactly what happened.</dd>
+        </div>
+        <div class="faq-item">
+          <dt>Does it respond to threats, or only detect them?</dt>
+          <dd>It responds. A per-host companion, <span class="mono-inline">invariantd-responder</span>, enforces a policy: critical, unambiguous violations are terminated on the host in under 2 milliseconds; high-severity is escalated to a human; the rest is recorded. Defaults are conservative, dry-run by default, and every action is written to a durable audit trail.</dd>
+        </div>
+        <div class="faq-item">
+          <dt>Where does it run?</dt>
+          <dd>Entirely on your hosts. A single static binary and a systemd unit on Linux kernel 5.8 or later. Events, graph, verification, and response all stay on the machine — no cloud dependency and no data residency question.</dd>
+        </div>
+        <div class="faq-item">
+          <dt>What does it cost?</dt>
+          <dd>The source is available under BUSL-1.1; production use takes a commercial license. At 10,000 hosts it runs roughly $250K per year, compared with about $2M per year for traditional EDR.</dd>
+        </div>
+        <div class="faq-item">
+          <dt>What does it detect out of the box?</dt>
+          <dd>Sixty-six rules ship built in, covering all ten MITRE ATT&amp;CK tactics — web shells, reverse shells, credential theft, container escape, persistence, exfiltration, and ransomware behavior — each delivering a causal chain and carrying its own response.</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ── 08 Contact ───────────────────────────────────── -->
   <section class="doc-section contact" id="contact">
-    <div class="rail"><span class="rail-no">07</span><span class="rail-label">Contact</span></div>
+    <div class="rail"><span class="rail-no">08</span><span class="rail-label">Contact</span></div>
     <div class="doc-body">
       <h2>Book a walkthrough.</h2>
       <p>Thirty minutes, your questions, a live daemon. We&rsquo;ll write a rule for your
