@@ -1,0 +1,5 @@
+# invariantd.com security contact — https://securitytxt.org
+Contact: https://invariantd.com/#contact
+Canonical: https://invariantd.com/.well-known/security.txt
+Preferred-Languages: en
+Expires: 2027-07-15T00:00:00.000Z

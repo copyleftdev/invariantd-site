@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
     <loc>https://invariantd.com/</loc>
+    <lastmod>2026-07-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://invariantd.com/og.jpg</image:loc>
+      <image:title>invariantd — the command center</image:title>
+    </image:image>
+    <video:video>
+      <video:thumbnail_loc>https://invariantd.com/media/poster.jpg</video:thumbnail_loc>
+      <video:title>invariantd — the command center</video:title>
+      <video:description>A single adversary runs a full campaign against a global fleet. Every step is verified and, where the rule is unambiguous, terminated on the host it ran on.</video:description>
+      <video:content_loc>https://invariantd.com/media/invariantd-demo.mp4</video:content_loc>
+      <video:duration>192</video:duration>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:live>no</video:live>
+    </video:video>
   </url>
 </urlset>

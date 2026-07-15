@@ -1,0 +1,29 @@
+# invariantd
+
+> Runtime verification for Linux infrastructure. invariantd verifies every process spawn, file write, network connection, and privilege change on your hosts against formal rules you write — 0% false positives by construction — and terminates the critical violations on the host, in microseconds. Every violation arrives with its exact causal chain.
+
+invariantd is an alternative to detection-based EDR. Where traditional EDR asks a model "does this look like an attack?" and returns a probability, invariantd asks "did the system break a rule?" — a question with an exact answer. It models the host as a live temporal graph of processes, files, users, and connections, and continuously evaluates formal invariants against it. A per-host companion, invariantd-responder, enforces a response policy on the verdict.
+
+## Key facts
+
+- Detection: formal rules, not ML or signatures. A violation is a fact, not a score. 0% false positives by construction.
+- Response: a per-host companion terminates the offending process or stops the service in under 2 milliseconds; high-severity escalates to a human; the rest is recorded. Conservative defaults, dry-run by default, protected never-kill list, and a durable audit trail of every action.
+- Evidence: every violation ships with its exact causal chain (e.g. nginx(pid 4521) — spawned → /bin/sh(pid 4522)). The violation is the investigation.
+- Footprint: under 10 MB eBPF agent, under 3% CPU, kernel event to verdict in under 500 microseconds.
+- Deployment: a single static binary plus a systemd unit. Entirely on-host — no cloud dependency, no data residency question. Linux kernel 5.8 or later.
+- Coverage: 66 built-in rules across all 10 MITRE ATT&CK tactics — web shells, reverse shells, credential theft, container escape, persistence, exfiltration, and ransomware behavior.
+- Licensing: source-available under BUSL-1.1; a commercial license is required for production use.
+- Economics: roughly $250K/year at 10,000 hosts, versus about $2M/year for traditional EDR.
+- Honest limitation: invariantd verifies the rules you write and makes no claim about what you have not specified. The rulebook, not a model, is where judgment lives.
+
+## Sections
+
+- [How it works](https://invariantd.com/#how-it-works): Observe (eBPF kernel events) → Model (live temporal graph) → Verify (incremental rule evaluation, verdict in <500 µs).
+- [Response](https://invariantd.com/#response): the response tier — a per-host responder enforcing terminate / escalate / record, local by design, dry-run by default, fully audited.
+- [Rules](https://invariantd.com/#rules): the small formal rule language and the 66-rule ATT&CK-mapped default set; each rule carries its own @respond action.
+- [Compare](https://invariantd.com/#compare): invariantd versus traditional EDR, point by point.
+- [Contact](https://invariantd.com/#contact): book a 30-minute walkthrough with a live daemon.
+
+## Media
+
+- [The command center film](https://invariantd.com/media/invariantd-demo.mp4): a single adversary runs a full campaign against a global fleet; every step is named, chained, and — where the rule is unambiguous — neutralized on the host. 3 minutes 12 seconds.
