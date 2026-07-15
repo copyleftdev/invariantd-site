@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Articles — runtime verification, detection & response | invariantd</title>
+  <meta name="description" content="Field notes on runtime verification, EDR false positives, eBPF security, and active response — accurate, concise, and cited. From the team behind invariantd.">
+  <link rel="canonical" href="https://invariantd.com/articles/">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="author" content="invariantd">
+  <meta name="theme-color" content="#f7f9f9">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="invariantd">
+  <meta property="og:url" content="https://invariantd.com/articles/">
+  <meta property="og:title" content="Articles — runtime verification, detection & response | invariantd">
+  <meta property="og:description" content="Field notes on runtime verification, EDR false positives, eBPF security, and active response — accurate, concise, and cited.">
+  <meta property="og:image" content="https://invariantd.com/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://invariantd.com/og.jpg">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23244e5c'/%3E%3Cpath d='M10 8v16M10 16h9M23 11v10' stroke='%23f2f6f6' stroke-width='2.8' fill='none' stroke-linecap='square'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..750&family=Fragment+Mono:ital@0;1&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Blog",
+        "@id": "https://invariantd.com/articles/#blog",
+        "url": "https://invariantd.com/articles/",
+        "name": "invariantd — Articles",
+        "description": "Field notes on runtime verification, EDR false positives, eBPF security, and active response.",
+        "inLanguage": "en",
+        "publisher": { "@type": "Organization", "name": "invariantd", "url": "https://invariantd.com/", "logo": { "@type": "ImageObject", "url": "https://invariantd.com/logo.png" } },
+        "blogPost": [
+          {
+            "@type": "BlogPosting",
+            "headline": "Why EDR false positives happen — and how to eliminate them",
+            "url": "https://invariantd.com/articles/edr-false-positives/",
+            "datePublished": "2026-07-15",
+            "author": { "@type": "Organization", "name": "invariantd" }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://invariantd.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://invariantd.com/articles/" }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<header class="masthead">
+  <a class="wordmark" href="/" aria-label="invariantd home">
+    <svg class="wordmark-glyph" viewBox="0 0 32 32" aria-hidden="true"><path d="M7 5v22M7 16h13M25 9.5v13" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="square"/></svg>
+    invariantd
+  </a>
+  <nav class="masthead-nav" aria-label="Sections">
+    <a href="/#how-it-works">How it works</a>
+    <a href="/#response">Response</a>
+    <a href="/#compare">Compare</a>
+    <a class="nav-cta" href="/#contact">Book a walkthrough</a>
+  </nav>
+</header>
+
+<main>
+  <article class="article">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a><span class="sep">/</span>
+      <span>Articles</span>
+    </nav>
+
+    <header class="article-head">
+      <p class="kicker">Field notes</p>
+      <h1>Runtime verification, in the open.</h1>
+      <p class="article-dek">Accurate, concise, and cited — on why detection guesses, how verification doesn&rsquo;t, and what it takes to catch and stop real attacks on Linux infrastructure.</p>
+    </header>
+
+    <ul class="article-list">
+      <li>
+        <a href="/articles/edr-false-positives/">
+          <span class="al-meta">Detection engineering &middot; 8 min &middot; Jul 15, 2026</span>
+          <div class="al-title">Why EDR false positives happen — and how to eliminate them</div>
+          <p class="al-dek">What Oxford, IDC, and IBM actually found about the false-positive problem — and why rule-based verification reaches a 0% rate by construction, not by tuning.</p>
+        </a>
+      </li>
+      <li class="al-soon">
+        <a href="#" aria-disabled="true" onclick="return false;" tabindex="-1">
+          <span class="al-meta"><span class="al-badge">In progress</span></span>
+          <div class="al-title">eBPF for security monitoring: a practical primer</div>
+          <p class="al-dek">What eBPF is, why it lets a &lt;10&nbsp;MB agent see every kernel event, and how it compares to kernel modules and userland hooks.</p>
+        </a>
+      </li>
+      <li class="al-soon">
+        <a href="#" aria-disabled="true" onclick="return false;" tabindex="-1">
+          <span class="al-meta"><span class="al-badge">In progress</span></span>
+          <div class="al-title">Detection, prevention, verification: a field guide</div>
+          <p class="al-dek">Three different questions about the same event — what each one can and cannot promise, and where they belong in a defense.</p>
+        </a>
+      </li>
+      <li class="al-soon">
+        <a href="#" aria-disabled="true" onclick="return false;" tabindex="-1">
+          <span class="al-meta"><span class="al-badge">In progress</span></span>
+          <div class="al-title">Containing ransomware in microseconds</div>
+          <p class="al-dek">Why detection-then-page loses the race, and how an on-host response terminates a mass-encryption process before it finishes the first file.</p>
+        </a>
+      </li>
+    </ul>
+  </article>
+</main>
+
+<footer class="colophon">
+  <p><svg class="wordmark-glyph" viewBox="0 0 32 32" aria-hidden="true"><path d="M7 5v22M7 16h13M25 9.5v13" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="square"/></svg> invariantd</p>
+  <p>&copy; 2026 invariantd &middot; source-available under BUSL-1.1</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Why EDR false positives happen — and how to eliminate them | invariantd</title>
+  <meta name="description" content="EDR tools bury SOCs in false positives because they score a guess, not check a rule. What the research from Oxford, IDC, and IBM actually says — and how rule-based runtime verification reaches a 0% false-positive rate by construction.">
+  <link rel="canonical" href="https://invariantd.com/articles/edr-false-positives/">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="author" content="invariantd">
+  <meta name="theme-color" content="#f7f9f9">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="invariantd">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:url" content="https://invariantd.com/articles/edr-false-positives/">
+  <meta property="og:title" content="Why EDR false positives happen — and how to eliminate them">
+  <meta property="og:description" content="EDR buries SOCs in false positives because it scores a guess, not checks a rule. What Oxford, IDC, and IBM actually found — and how runtime verification reaches 0% by construction.">
+  <meta property="og:image" content="https://invariantd.com/og.jpg">
+  <meta property="article:published_time" content="2026-07-15">
+  <meta property="article:section" content="Security engineering">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Why EDR false positives happen — and how to eliminate them">
+  <meta name="twitter:description" content="EDR scores a guess; verification checks a rule. What the research says, and how to reach 0% false positives by construction.">
+  <meta name="twitter:image" content="https://invariantd.com/og.jpg">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23244e5c'/%3E%3Cpath d='M10 8v16M10 16h9M23 11v10' stroke='%23f2f6f6' stroke-width='2.8' fill='none' stroke-linecap='square'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..750&family=Fragment+Mono:ital@0;1&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "@id": "https://invariantd.com/articles/edr-false-positives/#article",
+        "headline": "Why EDR false positives happen — and how to eliminate them",
+        "description": "EDR tools bury SOCs in false positives because they score a guess, not check a rule. What Oxford, IDC, and IBM actually found — and how rule-based runtime verification reaches a 0% false-positive rate by construction.",
+        "datePublished": "2026-07-15",
+        "dateModified": "2026-07-15",
+        "inLanguage": "en",
+        "url": "https://invariantd.com/articles/edr-false-positives/",
+        "mainEntityOfPage": "https://invariantd.com/articles/edr-false-positives/",
+        "image": "https://invariantd.com/og.jpg",
+        "articleSection": "Security engineering",
+        "keywords": "EDR false positives, alert fatigue, SOC, runtime verification, EDR alternative, detection engineering",
+        "author": { "@type": "Organization", "name": "invariantd", "url": "https://invariantd.com/" },
+        "publisher": {
+          "@type": "Organization",
+          "name": "invariantd",
+          "logo": { "@type": "ImageObject", "url": "https://invariantd.com/logo.png", "width": 512, "height": 512 }
+        },
+        "citation": [
+          { "@type": "CreativeWork", "name": "99% False Positives: A Qualitative Study of SOC Analysts' Perspectives on Security Alarms (USENIX Security 2022)", "url": "https://www.usenix.org/conference/usenixsecurity22/presentation/alahmadi" },
+          { "@type": "CreativeWork", "name": "IDC / FireEye — The Voice of the Analysts (2021)", "url": "https://www.cybersecuritydive.com/news/security-alert-analyst-SOC-idc-fireeye/595111/" },
+          { "@type": "CreativeWork", "name": "IBM Cost of a Data Breach Report 2024", "url": "https://newsroom.ibm.com/2024-07-30-ibm-report-escalating-data-breach-disruption-pushes-costs-to-new-highs" }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://invariantd.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://invariantd.com/articles/" },
+          { "@type": "ListItem", "position": 3, "name": "Why EDR false positives happen", "item": "https://invariantd.com/articles/edr-false-positives/" }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<header class="masthead">
+  <a class="wordmark" href="/" aria-label="invariantd home">
+    <svg class="wordmark-glyph" viewBox="0 0 32 32" aria-hidden="true"><path d="M7 5v22M7 16h13M25 9.5v13" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="square"/></svg>
+    invariantd
+  </a>
+  <nav class="masthead-nav" aria-label="Sections">
+    <a href="/#how-it-works">How it works</a>
+    <a href="/#response">Response</a>
+    <a href="/articles/">Articles</a>
+    <a class="nav-cta" href="/#contact">Book a walkthrough</a>
+  </nav>
+</header>
+
+<main>
+  <article class="article">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a><span class="sep">/</span>
+      <a href="/articles/">Articles</a><span class="sep">/</span>
+      <span>EDR false positives</span>
+    </nav>
+
+    <header class="article-head">
+      <p class="kicker">Detection engineering</p>
+      <h1>Why EDR false positives happen — and how to eliminate them</h1>
+      <p class="article-meta"><span>July 15, 2026</span><span>8 min read</span></p>
+      <p class="article-dek">Endpoint detection buries security teams in alerts that lead nowhere. The reason isn&rsquo;t bad tuning — it&rsquo;s that detection scores a guess. Here is what the research actually says, and what it takes to drive the false-positive rate to zero.</p>
+    </header>
+
+    <div class="article-body">
+      <h2>The false positive is the product, not the bug</h2>
+      <p>Modern EDR watches endpoint activity and asks a model or a signature how suspicious it looks. The answer is a probability. When it crosses a threshold, you get an alert. Because the answer is a guess, a large share of those alerts are wrong — and that is a property of the approach, not a defect in a particular vendor.</p>
+      <p>The numbers are consistent across a decade of research. A 2021 IDC survey of more than 300 security operations centers found that <strong>45% of all alerts are false positives</strong> — rising to 53% at managed security providers.<a class="cite" href="#ref-2">[2]</a> Oxford researchers who interviewed SOC analysts for USENIX Security 2022 named their peer-reviewed paper after a practitioner&rsquo;s own estimate: <em>&ldquo;99% False Positives.&rdquo;</em><a class="cite" href="#ref-1">[1]</a></p>
+      <p>That paper contains the single most important nuance in this whole debate. The researchers found that many of those &ldquo;false positives&rdquo; were not noise at all — they were <strong>benign triggers</strong>: real events, fully explained by legitimate behavior in the organization&rsquo;s own environment. The tool flagged something that genuinely happened. It simply could not tell that it was <em>allowed</em>.</p>
+      <p>That is the whole problem in one sentence. Detection can see the event. It cannot know your intent.</p>
+
+      <h2>What false positives actually cost</h2>
+      <p>The cost is not the wasted click on any single alert. It is what happens to the queue.</p>
+      <div class="stat-figure">
+        <span class="num">1 in 3</span>
+        <span class="cap">SOC analysts admit to ignoring alerts when the queue is full<a class="cite" href="#ref-2">[2]</a> — which means the real one hides in the pile no one is reading.</span>
+      </div>
+      <p>When a third of alerts get ignored under load, the failure mode isn&rsquo;t a missed click — it is a missed intrusion. And intrusions are patient. IBM&rsquo;s 2024 <em>Cost of a Data Breach</em> report puts the global average breach at <strong>194 days to identify and 64 more to contain</strong>, at an average cost of <strong>$4.88 million</strong>.<a class="cite" href="#ref-3">[3]</a> Every hour a genuine alert waits behind a thousand false ones is dwell time — and dwell time is what that number is made of.</p>
+
+      <h2>Why tuning can&rsquo;t fix it</h2>
+      <p>The instinct is to tune the rules down. It doesn&rsquo;t work, because detection sits on a base-rate tradeoff it cannot escape:</p>
+      <ul>
+        <li>Turn sensitivity <strong>down</strong>, and you miss real attacks — false negatives, the expensive kind.</li>
+        <li>Turn it <strong>up</strong>, and the false positives flood back.</li>
+      </ul>
+      <p>You are moving a slider between two failures, never removing either. Behavioral and machine-learning models make it worse, not better, because they infer intent from behavior — and the exact behaviors that signal an attack (a shell spawning, a process reading a credential file, an outbound connection from a database) also occur constantly for entirely legitimate reasons. No amount of retraining teaches a probability what <em>your</em> environment considers normal, because &ldquo;normal&rdquo; is a policy decision, not a statistical one.</p>
+
+      <h2>The alternative: verify against a rule, don&rsquo;t score a guess</h2>
+      <p>Runtime verification inverts the question. Instead of &ldquo;does this look malicious?&rdquo; it asks &ldquo;did the system do something a rule forbids?&rdquo;</p>
+      <p>A rule is a precise, declarative statement about what must never happen — for example, <em>a web server must never spawn an interactive shell.</em> The engine models every process, file, and connection as a live graph and checks each event against the rule as it lands. Either the forbidden edge appears in the graph or it does not. There is no score, no threshold, and no &ldquo;medium confidence.&rdquo;</p>
+      <p>This is why the false-positive rate is <strong>zero by construction</strong>, not by tuning: a rule cannot partially match. And because the finding is a concrete edge in a causal graph, the alert <em>is</em> the evidence — <span class="mono-inline">nginx(4521) → spawned → /bin/sh(4522)</span> — not &ldquo;suspicious activity detected.&rdquo; The benign trigger that fooled the detector never fires here, because the rule already encodes which spawns are allowed. (This is the model invariantd is built on — see <a href="/#how-it-works">how it works</a> and the <a href="/#rules">rule language</a>.)</p>
+
+      <h2>The honest tradeoff</h2>
+      <p>Verification is not magic, and pretending otherwise would be its own kind of false positive. It catches <em>exactly</em> what you specify — no more. It makes no probabilistic claim about the attack you never wrote a rule for. The rulebook, not a model, is where your judgment lives.</p>
+      <p>That is a deliberate trade. You give up the comforting illusion that a model will catch the unknown, and in return you get certainty on the known: the web shells, reverse shells, credential dumps, container escapes, and ransomware behaviors catalogued across the tactics of MITRE ATT&amp;CK.<a class="cite" href="#ref-4">[4]</a> For the overwhelming majority of real intrusions, the technique is not novel — it is a known move executed on your infrastructure, and a rule catches a known move every single time.</p>
+
+      <h2>Getting to zero</h2>
+      <p>You don&rsquo;t reach a zero false-positive rate by tuning your way there. You reach it one unambiguous rule at a time:</p>
+      <ul>
+        <li>Start where the answer is not debatable — a production web server spawning <span class="mono-inline">/bin/sh</span>, a database process opening an outbound connection to the internet, a container entering the host namespace. These are never legitimate, so a rule for them never cries wolf.</li>
+        <li>Layer coverage across the ATT&amp;CK tactics. Every rule you add is an entire class of attack that can no longer produce a false positive <em>or</em> a false negative.</li>
+        <li>Attach a response to the ones that are unambiguous, so the verdict does something in the same microseconds it&rsquo;s reached, instead of joining a queue.</li>
+      </ul>
+      <p>The goal was never &ldquo;fewer false positives.&rdquo; It was to stop guessing.</p>
+
+      <section class="references" aria-label="References">
+        <h2>References</h2>
+        <ol>
+          <li id="ref-1">Alahmadi, B. A., Axon, L., &amp; Martinovic, I. <a href="https://www.usenix.org/conference/usenixsecurity22/presentation/alahmadi" rel="nofollow">&ldquo;99% False Positives: A Qualitative Study of SOC Analysts&rsquo; Perspectives on Security Alarms.&rdquo;</a> 31st USENIX Security Symposium (USENIX Security 2022), pp. 2783–2800. University of Oxford.</li>
+          <li id="ref-2">IDC &amp; FireEye, <em>The Voice of the Analysts</em> survey (300+ SOCs, 50 MSSPs), reported by <a href="https://www.cybersecuritydive.com/news/security-alert-analyst-SOC-idc-fireeye/595111/" rel="nofollow">Cybersecurity Dive</a>, February 2021.</li>
+          <li id="ref-3">IBM Security, <a href="https://newsroom.ibm.com/2024-07-30-ibm-report-escalating-data-breach-disruption-pushes-costs-to-new-highs" rel="nofollow"><em>Cost of a Data Breach Report 2024</em></a> (global average $4.88M; 194 days to identify, 64 to contain).</li>
+          <li id="ref-4">MITRE, <a href="https://attack.mitre.org/" rel="nofollow">ATT&amp;CK</a> — the adversary tactics and techniques knowledge base.</li>
+        </ol>
+      </section>
+
+      <aside class="article-cta">
+        <h2>See it fire on your own rule.</h2>
+        <p>Thirty minutes, a live daemon. We&rsquo;ll write a rule for your environment and watch it verify — and, if you like, watch it act.</p>
+        <a class="button" href="/#contact">Book a walkthrough</a>
+      </aside>
+    </div>
+  </article>
+</main>
+
+<footer class="colophon">
+  <p><svg class="wordmark-glyph" viewBox="0 0 32 32" aria-hidden="true"><path d="M7 5v22M7 16h13M25 9.5v13" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="square"/></svg> invariantd</p>
+  <p>&copy; 2026 invariantd &middot; source-available under BUSL-1.1</p>
+</footer>
+
+</body>
+</html>
