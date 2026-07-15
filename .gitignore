@@ -1,0 +1,11 @@
+# deploy runtime
+deploy/logs/
+*.log
+
+# os / editor
+.DS_Store
+Thumbs.db
+*.swp
+
+# node (none expected, but just in case tooling lands)
+node_modules/

@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>invariantd — Either the rule was violated, or it wasn't.</title>
+  <meta name="description" content="Runtime verification for Linux infrastructure. invariantd verifies every event on your hosts against rules you write — 0% false positives by design — and terminates the critical ones on the host, in microseconds. Every violation arrives with its exact causal chain.">
+  <link rel="canonical" href="https://invariantd.com/">
+  <meta name="theme-color" content="#f7f9f9">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://invariantd.com/">
+  <meta property="og:title" content="invariantd — Either the rule was violated, or it wasn't.">
+  <meta property="og:description" content="Runtime verification for Linux infrastructure. Formal rules, 0% false positives by design — and the critical violations end on the host, in microseconds.">
+  <meta property="og:image" content="https://invariantd.com/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23244e5c'/%3E%3Cpath d='M10 8v16M10 16h9M23 11v10' stroke='%23f2f6f6' stroke-width='2.8' fill='none' stroke-linecap='square'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..750&family=Fragment+Mono:ital@0;1&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<header class="masthead">
+  <a class="wordmark" href="/" aria-label="invariantd home">
+    <svg class="wordmark-glyph" viewBox="0 0 32 32" aria-hidden="true"><path d="M7 5v22M7 16h13M25 9.5v13" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="square"/></svg>
+    invariantd
+  </a>
+  <nav class="masthead-nav" aria-label="Sections">
+    <a href="#how-it-works">How it works</a>
+    <a href="#response">Response</a>
+    <a href="#compare">Compare</a>
+    <a class="nav-cta" href="#contact">Book a walkthrough</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ── Hero ─────────────────────────────────────────── -->
+  <section class="hero">
+    <p class="kicker">Runtime verification for Linux infrastructure</p>
+    <h1>Either the rule was violated,<br>or it wasn&rsquo;t.</h1>
+    <p class="lede">invariantd verifies every process spawn, file write, network connection,
+    and privilege change on your hosts against rules you write. No models. No confidence
+    scores. A violation is a fact — and the ones that matter, it ends on the host,
+    in microseconds.</p>
+
+    <figure class="hero-film">
+      <div class="film-frame" data-film>
+        <video class="film-video" poster="media/poster.jpg" preload="none" playsinline
+               aria-label="invariantd command center — one attack campaign, verified and neutralized in real time">
+          <source src="media/invariantd-demo.mp4" type="video/mp4">
+        </video>
+        <button class="film-play" type="button" data-play aria-label="Play the film — 3 minutes, with sound">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <div class="film-badge" aria-hidden="true">
+          <span class="film-live">Command center</span>
+          <span>one attack campaign · every step verified, then met</span>
+          <span class="film-run">3:12 · sound on</span>
+        </div>
+      </div>
+      <figcaption class="film-caption">A single adversary runs a full campaign against a global fleet. Watch every step get named, chained, and — where the rule is unambiguous — terminated on the host it ran on.</figcaption>
+    </figure>
+
+    <div class="hero-actions">
+      <a class="button" href="#contact">Book a walkthrough</a>
+      <a class="quiet-link" href="#violation">See a violation fire&nbsp;&darr;</a>
+    </div>
+    <p class="hero-facts" aria-label="Key figures">
+      <span>&lt;10&nbsp;MB agent</span>
+      <span>verdict &lt;500&mu;s</span>
+      <span>response &lt;2&nbsp;ms, on-host</span>
+      <span>zero cloud dependency</span>
+    </p>
+  </section>
+
+  <!-- ── 01 The problem ───────────────────────────────── -->
+  <section class="doc-section" id="problem">
+    <div class="rail"><span class="rail-no">01</span><span class="rail-label">The problem</span></div>
+    <div class="doc-body">
+      <h2>Detection by guesswork has a cost.</h2>
+      <p>Your current stack watches the same events invariantd does — then asks a model
+      whether they look suspicious. The model hedges. It says <em>&ldquo;suspicious
+      activity detected&rdquo;</em> and hands the doubt to a human, hours after the
+      process it was worried about has already done its work.</p>
+      <dl class="figures">
+        <div><dt>85–95%</dt><dd>of EDR alerts are false positives</dd></div>
+        <div><dt>2–4 hours</dt><dd>of analyst time to triage each one</dd></div>
+        <div><dt>&ldquo;Suspicious&rdquo;</dt><dd>is the most detailed explanation you get</dd></div>
+      </dl>
+      <p>A probabilistic detector cannot tell you what happened. It can only tell you
+      what it suspects — and by the time a human confirms it, the response is late.
+      The triage queue is where that difference is paid for.</p>
+    </div>
+  </section>
+
+  <!-- ── The violation (dark readout band) ────────────── -->
+  <section class="readout" id="violation" aria-label="Example violation output">
+    <div class="readout-inner">
+      <p class="readout-caption">Simulated output — a violation, and the response to it</p>
+      <div class="readout-screen" data-chain>
+        <p class="ro-line ro-head"><span class="ro-sev">CRITICAL</span> <span class="ro-name">no_shell_from_web</span> <span class="ro-ts">14:23:01.482</span></p>
+        <p class="ro-line ro-chain">
+          <span class="chain-node">nginx<span class="chain-pid">(pid 4521)</span></span>
+          <span class="chain-edge">─ spawned →</span>
+          <span class="chain-node chain-hot">/bin/sh<span class="chain-pid">(pid 4522)</span></span>
+        </p>
+        <p class="ro-line ro-rule">rule: never (p:Process)-[:spawns]-&gt;(c:Process) where p.name in {"nginx"} and c.path in {"/bin/sh"}</p>
+        <p class="ro-line ro-verdict">1 event examined &middot; 1 rule matched &middot; verdict in &lt;500&mu;s</p>
+        <p class="ro-line ro-response"><span class="ro-resp-tag">RESPONSE</span> terminated /bin/sh (pid 4522) on web-03 <span class="ro-resp-lat">&middot; 1.6&nbsp;ms &middot; invariantd-responder</span></p>
+      </div>
+      <p class="readout-note">No score. No &ldquo;medium confidence.&rdquo; The web server spawned a shell
+      at 14:23:01, here is the edge in the graph that proves it — and the shell was gone
+      1.6&nbsp;milliseconds later. The violation <em>is</em> the investigation;
+      the response was already done.</p>
+    </div>
+  </section>
+
+  <!-- ── 02 How it works ──────────────────────────────── -->
+  <section class="doc-section" id="how-it-works">
+    <div class="rail"><span class="rail-no">02</span><span class="rail-label">How it works</span></div>
+    <div class="doc-body">
+      <h2>Observe. Model. Verify.</h2>
+      <ol class="spec-list">
+        <li>
+          <h3><span class="spec-no">2.1</span> Observe</h3>
+          <p>An eBPF agent under 10&nbsp;MB attaches to kernel tracepoints and streams
+          process, file, network, and privilege events through a ring buffer —
+          microsecond timestamps, under 3% CPU, nothing leaves the host.</p>
+        </li>
+        <li>
+          <h3><span class="spec-no">2.2</span> Model</h3>
+          <p>Events build a live temporal graph: every process, file, user, and
+          connection is a node; every action is an edge with a time interval. The
+          graph is the ground truth of what your system actually did.</p>
+        </li>
+        <li>
+          <h3><span class="spec-no">2.3</span> Verify</h3>
+          <p>Your rules compile into an incremental evaluation network that checks each
+          event as it lands. When a rule matches, the violation is emitted with its
+          causal chain — kernel event to verdict in under half a millisecond.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ── 03 Response ──────────────────────────────────── -->
+  <section class="doc-section" id="response">
+    <div class="rail"><span class="rail-no">03</span><span class="rail-label">Response</span></div>
+    <div class="doc-body">
+      <h2>Catching it is half the job.</h2>
+      <p>A verdict in half a millisecond is only useful if something acts on it. So every
+      host runs a companion — <span class="mono-inline">invariantd-responder</span> — that
+      subscribes to the daemon&rsquo;s verified violations and enforces a response policy
+      you control. Because a process is killed on the host where it ran, response scales
+      as one small agent per machine: no central bottleneck, no round-trip to a cloud.</p>
+      <p>The shipped defaults are deliberately conservative — nothing ambiguous is ever
+      touched:</p>
+      <div class="policy">
+        <div class="policy-row"><span class="policy-sev is-critical">critical</span><span class="policy-act">terminate the process, or stop the service, on the host</span><span class="policy-kw">kill</span></div>
+        <div class="policy-row"><span class="policy-sev is-high">high</span><span class="policy-act">escalate to on-call for a human to judge</span><span class="policy-kw">alert</span></div>
+        <div class="policy-row"><span class="policy-sev is-low">medium · low</span><span class="policy-act">record to the append-only ledger</span><span class="policy-kw">observe</span></div>
+      </div>
+      <p>Every decision — enforced, escalated, or blocked by the safety guard — is written
+      to a durable audit trail. Nothing is killed silently: the responder ships in
+      dry-run by default, protects init, sshd, and itself unconditionally, and answers
+      &ldquo;what did it do, and why&rdquo; for every action it takes.</p>
+    </div>
+  </section>
+
+  <!-- ── 04 Rules ─────────────────────────────────────── -->
+  <section class="doc-section" id="rules">
+    <div class="rail"><span class="rail-no">04</span><span class="rail-label">Rules</span></div>
+    <div class="doc-body">
+      <h2>Rules you can read.</h2>
+      <p>Rules are written in a small, formal language — declarative enough to review in
+      a pull request, precise enough to compile. This one says: <em>a web server must
+      never spawn a shell</em> — and what to do the instant one does.</p>
+      <pre class="rule-block"><code>invariant no_shell_from_web {
+    @severity(critical)
+    @respond(kill)
+    never (p:Process)-[:spawns]-&gt;(c:Process)
+        where p.name in {"nginx", "apache2"}
+          and c.path in {"/bin/sh", "/bin/bash"}
+}</code></pre>
+      <p>Sixty-six rules ship in the box, covering all ten MITRE ATT&amp;CK tactics — web
+      shells, reverse shells, credential theft, container escape, persistence,
+      exfiltration, ransomware behavior. Every one delivers a causal chain, and carries
+      its own response.</p>
+      <ul class="tactic-index" aria-label="Built-in rule coverage by category">
+        <li><span>Initial access</span><span class="ti-count">5</span></li>
+        <li><span>Persistence</span><span class="ti-count">8</span></li>
+        <li><span>Privilege escalation</span><span class="ti-count">6</span></li>
+        <li><span>Credential access</span><span class="ti-count">6</span></li>
+        <li><span>Lateral movement</span><span class="ti-count">4</span></li>
+        <li><span>Collection</span><span class="ti-count">4</span></li>
+        <li><span>Exfiltration</span><span class="ti-count">7</span></li>
+        <li><span>Defense evasion</span><span class="ti-count">6</span></li>
+        <li><span>Impact</span><span class="ti-count">5</span></li>
+        <li><span>Container security</span><span class="ti-count">8</span></li>
+        <li><span>Infrastructure baseline</span><span class="ti-count">7</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── 05 Compare ───────────────────────────────────── -->
+  <section class="doc-section" id="compare">
+    <div class="rail"><span class="rail-no">05</span><span class="rail-label">Compare</span></div>
+    <div class="doc-body">
+      <h2>Verification, next to detection.</h2>
+      <table class="compare">
+        <thead>
+          <tr><th scope="col"></th><th scope="col">Traditional EDR</th><th scope="col">invariantd</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">How it decides</th><td>ML models and signatures</td><td>Formal rules you write</td></tr>
+          <tr><th scope="row">False positives</th><td>85–95% of alerts</td><td>0% — by construction</td></tr>
+          <tr><th scope="row">What an alert says</th><td>&ldquo;Suspicious activity detected&rdquo;</td><td>&ldquo;nginx spawned /bin/sh at 14:23:01&rdquo;</td></tr>
+          <tr><th scope="row">When it fires</th><td>Alert only, or a cloud SOAR playbook seconds later</td><td>Terminates on the host, in &lt;2 ms</td></tr>
+          <tr><th scope="row">Investigation</th><td>2–4 hours per alert</td><td>None — the chain is the evidence</td></tr>
+          <tr><th scope="row">Agent</th><td>500&nbsp;MB+</td><td>&lt;10&nbsp;MB</td></tr>
+          <tr><th scope="row">Where it runs</th><td>Vendor cloud required</td><td>Entirely on your hosts</td></tr>
+          <tr><th scope="row">10,000 hosts</th><td>&asymp;&nbsp;$2M / year</td><td>&asymp;&nbsp;$250K / year</td></tr>
+        </tbody>
+      </table>
+      <p class="table-note">Detection and verification answer different questions. EDR asks
+      &ldquo;does this look like an attack?&rdquo; invariantd asks &ldquo;did the system break a rule?&rdquo;
+      — and the second question has an exact answer you can act on in microseconds.</p>
+    </div>
+  </section>
+
+  <!-- ── 06 Deployment ────────────────────────────────── -->
+  <section class="doc-section" id="deployment">
+    <div class="rail"><span class="rail-no">06</span><span class="rail-label">Deployment</span></div>
+    <div class="doc-body">
+      <h2>One binary. Your hosts. Nothing else.</h2>
+      <p>A static daemon, a companion responder, and a systemd unit. Linux kernel 5.8 or
+      later. Events, graph, verification, and response all stay on the host — there is no
+      agent phone-home, no vendor cloud, no data residency question to answer.</p>
+      <p>The source is available under BUSL-1.1; production use takes a commercial
+      license. You can read every line of the engine that decides whether your
+      infrastructure broke a rule — and of the responder that acts when it did.</p>
+      <p class="candor">One honest limitation: invariantd verifies the rules you write. It
+      makes no claim about what you haven&rsquo;t specified. That precision is the point —
+      but it means the rulebook, not a model, is where your judgment lives.</p>
+    </div>
+  </section>
+
+  <!-- ── 07 Contact ───────────────────────────────────── -->
+  <section class="doc-section contact" id="contact">
+    <div class="rail"><span class="rail-no">07</span><span class="rail-label">Contact</span></div>
+    <div class="doc-body">
+      <h2>Book a walkthrough.</h2>
+      <p>Thirty minutes, your questions, a live daemon. We&rsquo;ll write a rule for your
+      environment while you watch it verify — and, if you like, watch it act.</p>
+      <form class="contact-form" action="https://api.web3forms.com/submit" method="POST" data-contact>
+        <input type="hidden" name="access_key" value="f1e4c2c5-9b66-44f5-b9b1-c6d460e45b7c">
+        <input type="hidden" name="subject" value="Walkthrough request — invariantd.com">
+        <input type="checkbox" name="botcheck" class="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="field-row">
+          <label>Name
+            <input type="text" name="name" required autocomplete="name">
+          </label>
+          <label>Work email
+            <input type="email" name="email" required autocomplete="email">
+          </label>
+        </div>
+        <label>What are you running today?
+          <textarea name="message" rows="4" placeholder="Fleet size, current EDR, what you'd want a rule to catch&hellip;"></textarea>
+        </label>
+        <div class="form-actions">
+          <button class="button" type="submit">Request walkthrough</button>
+          <p class="form-status" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="colophon">
+  <p><svg class="wordmark-glyph" viewBox="0 0 32 32" aria-hidden="true"><path d="M7 5v22M7 16h13M25 9.5v13" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="square"/></svg> invariantd</p>
+  <p>&copy; 2026 invariantd &middot; source-available under BUSL-1.1</p>
+</footer>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>
