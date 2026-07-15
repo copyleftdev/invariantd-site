@@ -1,0 +1,30 @@
+# DigitalOcean App Platform — static site for invariantd.com
+# Free static tier: $0 base, managed TLS + global CDN.
+#   doctl apps create --spec deploy/app.yaml
+#   doctl apps create-deployment <app-id>     # redeploy after a push
+name: invariantd-site
+region: nyc
+features:
+  - buildpack-stack=ubuntu-22
+static_sites:
+  - name: site
+    git:
+      branch: main
+      repo_clone_url: https://github.com/copyleftdev/invariantd-site.git
+    source_dir: /site
+    index_document: index.html
+    catchall_document: index.html
+ingress:
+  rules:
+    - component:
+        name: site
+      match:
+        path:
+          prefix: /
+domains:
+  - domain: invariantd.com
+    type: PRIMARY
+    zone: invariantd.com
+  - domain: www.invariantd.com
+    type: ALIAS
+    zone: invariantd.com
