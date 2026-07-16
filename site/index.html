@@ -115,6 +115,18 @@
         "publisher": { "@id": "https://invariantd.com/#organization" }
       },
       {
+        "@type": "VideoObject",
+        "@id": "https://invariantd.com/#advisoryforge-film",
+        "name": "advisoryforge — open CVEs into a validated, deployed ruleset",
+        "description": "advisoryforge takes a vulnerability scanner's open-CVE export, maps each weakness to the runtime behavior an exploit produces, writes and validates a rule against the host, and then signs the ruleset and deploys it — applying live to a device and staging the rest of the fleet.",
+        "thumbnailUrl": "https://invariantd.com/media/advisoryforge-poster.jpg",
+        "contentUrl": "https://invariantd.com/media/advisoryforge-demo.mp4",
+        "uploadDate": "2026-07-16",
+        "duration": "PT2M56S",
+        "inLanguage": "en",
+        "publisher": { "@id": "https://invariantd.com/#organization" }
+      },
+      {
         "@type": "FAQPage",
         "@id": "https://invariantd.com/#faq",
         "mainEntity": [
@@ -165,6 +177,7 @@
     <a href="#how-it-works">How it works</a>
     <a href="#response">Response</a>
     <a href="#ruleforge">Ruleforge</a>
+    <a href="#advisoryforge">Advisoryforge</a>
     <a href="#compare">Compare</a>
     <a href="/articles/">Articles</a>
     <a class="nav-cta" href="#contact">Book a walkthrough</a>
@@ -386,9 +399,55 @@
     </div>
   </section>
 
-  <!-- ── 06 Compare ───────────────────────────────────── -->
+  <!-- ── 06 Advisoryforge ─────────────────────────────── -->
+  <section class="doc-section" id="advisoryforge">
+    <div class="rail"><span class="rail-no">06</span><span class="rail-label">Advisoryforge</span></div>
+    <div class="doc-body forge-body">
+      <h2>From your scanner&rsquo;s list to a deployed defense.</h2>
+      <p>Your vulnerability scanner tells you what&rsquo;s broken — a list of open
+      CVEs, ranked by a score. But a CVE is a weakness, not a defense.
+      <span class="mono-inline">advisoryforge</span> takes that export and turns it
+      into something you can act on: for each CVE it maps the weakness to the
+      behavior an exploit of it would produce, then writes and validates the rule
+      that catches it.</p>
+
+      <figure class="forge-film">
+        <div class="film-frame" data-film>
+          <video class="film-video" poster="media/advisoryforge-poster.jpg" preload="none" playsinline
+                 aria-label="advisoryforge — turning a scanner's open CVEs into a validated ruleset, signed and deployed to a fleet">
+            <source src="media/advisoryforge-demo.mp4" type="video/mp4">
+          </video>
+          <button class="film-play" type="button" data-play aria-label="Play the advisoryforge walkthrough — three minutes, with sound">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <div class="film-badge" aria-hidden="true">
+            <span class="film-tag">Advisoryforge</span>
+            <span>open CVEs &middot; map to behavior &middot; validate &middot; sign &amp; deploy</span>
+            <span class="film-run">2:56 &middot; sound on</span>
+          </div>
+        </div>
+        <figcaption class="film-caption">advisoryforge enriches each open CVE, turns it into a rule, validates it on the host, then signs and deploys the result — applying live to one host and staging the rest of the fleet.</figcaption>
+      </figure>
+
+      <p>A CVE names a weakness; invariantd detects a behavior — so Log4Shell and a
+      PHP command-injection bug, two different vulnerabilities, are caught by a single
+      rule, because both end with a web service spawning a shell. Every rule is
+      validated against the machine before it ships, and a rule that would
+      false-positive here is dropped. Where a weakness has no clean runtime signature
+      — a container escape on a host that runs containers — advisoryforge says so
+      plainly: patch that one; it isn&rsquo;t something to detect.</p>
+
+      <p>What comes out isn&rsquo;t a report, it&rsquo;s a rulebook — each rule headed
+      by the CVEs it answers for. Sign it with your key, pick a single device or a
+      whole fleet, and deploy: it applies live to the hosts it can reach and stages
+      the exact command for the rest. Your scanner tells you what&rsquo;s exposed;
+      advisoryforge turns that into what&rsquo;s verified, and enforced.</p>
+    </div>
+  </section>
+
+  <!-- ── 07 Compare ───────────────────────────────────── -->
   <section class="doc-section" id="compare">
-    <div class="rail"><span class="rail-no">06</span><span class="rail-label">Compare</span></div>
+    <div class="rail"><span class="rail-no">07</span><span class="rail-label">Compare</span></div>
     <div class="doc-body">
       <h2>Verification, next to detection.</h2>
       <table class="compare">
@@ -412,9 +471,9 @@
     </div>
   </section>
 
-  <!-- ── 07 Deployment ────────────────────────────────── -->
+  <!-- ── 08 Deployment ────────────────────────────────── -->
   <section class="doc-section" id="deployment">
-    <div class="rail"><span class="rail-no">07</span><span class="rail-label">Deployment</span></div>
+    <div class="rail"><span class="rail-no">08</span><span class="rail-label">Deployment</span></div>
     <div class="doc-body">
       <h2>One binary. Your hosts. Nothing else.</h2>
       <p>A static daemon, a companion responder, and a systemd unit. Linux kernel 5.8 or
@@ -429,9 +488,9 @@
     </div>
   </section>
 
-  <!-- ── 08 FAQ ───────────────────────────────────────── -->
+  <!-- ── 09 FAQ ───────────────────────────────────────── -->
   <section class="doc-section" id="faq">
-    <div class="rail"><span class="rail-no">08</span><span class="rail-label">FAQ</span></div>
+    <div class="rail"><span class="rail-no">09</span><span class="rail-label">FAQ</span></div>
     <div class="doc-body">
       <h2>Questions, answered plainly.</h2>
       <dl class="faq">
@@ -463,9 +522,9 @@
     </div>
   </section>
 
-  <!-- ── 09 Contact ───────────────────────────────────── -->
+  <!-- ── 10 Contact ───────────────────────────────────── -->
   <section class="doc-section contact" id="contact">
-    <div class="rail"><span class="rail-no">09</span><span class="rail-label">Contact</span></div>
+    <div class="rail"><span class="rail-no">10</span><span class="rail-label">Contact</span></div>
     <div class="doc-body">
       <h2>Book a walkthrough.</h2>
       <p>Thirty minutes, your questions, a live daemon. We&rsquo;ll write a rule for your
