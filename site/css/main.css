@@ -319,7 +319,17 @@ h1 {
   color: var(--ink-soft);
 }
 
-.doc-body { max-width: var(--measure); }
+.doc-body { min-width: 0; max-width: var(--measure); }
+
+/* ── ruleforge: a wider film framed inside a doc body ── */
+.forge-body { max-width: min(64rem, 100%); }
+.forge-body > h2, .forge-body > p { max-width: var(--measure); }
+.forge-film { margin: var(--sp-lg) 0 var(--sp-md); }
+.film-tag {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  color: var(--accent-deep); text-transform: uppercase;
+  letter-spacing: 0.16em; font-weight: 650;
+}
 
 h2 {
   font-family: var(--font-label);

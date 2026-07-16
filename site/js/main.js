@@ -4,25 +4,25 @@
 // (preload="none"), so the landing stays light; play is user-initiated, so it
 // carries sound. Native controls appear once it starts.
 (() => {
-  const frame = document.querySelector('[data-film]');
-  if (!frame) return;
-  const video = frame.querySelector('.film-video');
-  const play = frame.querySelector('[data-play]');
-  if (!video || !play) return;
+  document.querySelectorAll('[data-film]').forEach((frame) => {
+    const video = frame.querySelector('.film-video');
+    const play = frame.querySelector('[data-play]');
+    if (!video || !play) return;
 
-  const start = () => {
-    frame.classList.add('is-playing');
-    video.setAttribute('controls', '');
-    const p = video.play();
-    if (p && typeof p.catch === 'function') p.catch(() => {});
-    video.focus({ preventScroll: true });
-  };
-  play.addEventListener('click', start);
-  video.addEventListener('play', () => frame.classList.add('is-playing'));
-  video.addEventListener('ended', () => {
-    frame.classList.remove('is-playing');
-    video.removeAttribute('controls');
-    video.load(); // restore the poster
+    const start = () => {
+      frame.classList.add('is-playing');
+      video.setAttribute('controls', '');
+      const p = video.play();
+      if (p && typeof p.catch === 'function') p.catch(() => {});
+      video.focus({ preventScroll: true });
+    };
+    play.addEventListener('click', start);
+    video.addEventListener('play', () => frame.classList.add('is-playing'));
+    video.addEventListener('ended', () => {
+      frame.classList.remove('is-playing');
+      video.removeAttribute('controls');
+      video.load(); // restore the poster
+    });
   });
 })();
 

@@ -103,6 +103,18 @@
         "publisher": { "@id": "https://invariantd.com/#organization" }
       },
       {
+        "@type": "VideoObject",
+        "@id": "https://invariantd.com/#ruleforge-film",
+        "name": "ruleforge — rules written and proven for a specific host",
+        "description": "ruleforge profiles a live Linux host, drafts candidate rules with a language model grounded in what it observed, then validates each one against the machine's own behavior — emitting only rules that stay silent on normal activity and fire on the threat they target. 0% false positives, applied to the rules themselves.",
+        "thumbnailUrl": "https://invariantd.com/media/ruleforge-poster.jpg",
+        "contentUrl": "https://invariantd.com/media/ruleforge-demo.mp4",
+        "uploadDate": "2026-07-16",
+        "duration": "PT2M52S",
+        "inLanguage": "en",
+        "publisher": { "@id": "https://invariantd.com/#organization" }
+      },
+      {
         "@type": "FAQPage",
         "@id": "https://invariantd.com/#faq",
         "mainEntity": [
@@ -152,6 +164,7 @@
   <nav class="masthead-nav" aria-label="Sections">
     <a href="#how-it-works">How it works</a>
     <a href="#response">Response</a>
+    <a href="#ruleforge">Ruleforge</a>
     <a href="#compare">Compare</a>
     <a href="/articles/">Articles</a>
     <a class="nav-cta" href="#contact">Book a walkthrough</a>
@@ -328,9 +341,54 @@
     </div>
   </section>
 
-  <!-- ── 05 Compare ───────────────────────────────────── -->
+  <!-- ── 05 Ruleforge ─────────────────────────────────── -->
+  <section class="doc-section" id="ruleforge">
+    <div class="rail"><span class="rail-no">05</span><span class="rail-label">Ruleforge</span></div>
+    <div class="doc-body forge-body">
+      <h2>Rules, written for the host they&rsquo;ll run on.</h2>
+      <p>The sixty-six built-in rules are a starting point. Your infrastructure
+      isn&rsquo;t generic, though — and its rulebook shouldn&rsquo;t be either.
+      <span class="mono-inline">ruleforge</span> writes rules for the specific
+      machine in front of it: it reads the host, drafts candidates with a language
+      model grounded in what it found, then proves each one against the
+      machine&rsquo;s own behavior before handing it to you.</p>
+
+      <figure class="forge-film">
+        <div class="film-frame" data-film>
+          <video class="film-video" poster="media/ruleforge-poster.jpg" preload="none" playsinline
+                 aria-label="ruleforge — observing a host, drafting rules, and keeping only the ones it can prove sound">
+            <source src="media/ruleforge-demo.mp4" type="video/mp4">
+          </video>
+          <button class="film-play" type="button" data-play aria-label="Play the ruleforge walkthrough — three minutes, with sound">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <div class="film-badge" aria-hidden="true">
+            <span class="film-tag">Ruleforge</span>
+            <span>observe a host &middot; draft &middot; prove &middot; keep only what&rsquo;s sound</span>
+            <span class="film-run">2:52 &middot; sound on</span>
+          </div>
+        </div>
+        <figcaption class="film-caption">ruleforge profiles a real machine, proposes rules for it, and validates each one — watch a textbook rule get rejected because the host&rsquo;s own state disproves it.</figcaption>
+      </figure>
+
+      <p>A model proposes; the compiler and the machine dispose. Every candidate has
+      to survive two tests before it ships: it must stay completely silent on
+      everything the host normally does, and it must fire on the exact behavior it
+      targets. A rule that would flag legitimate activity is thrown out before you
+      ever see it — the same 0% false positives, turned on the rules themselves.</p>
+
+      <p>In the walkthrough, the model suggests a reasonable-looking rule:
+      <span class="mono-inline">/etc/shadow</span> must be mode 0600. On that host,
+      shadow is 0640 — the distribution&rsquo;s own default. The rule would fire the
+      instant it loaded, so ruleforge rejects it and keeps the four that hold.
+      Nothing unsound leaves the forge: what you apply is a rulebook that fits this
+      machine exactly, and can&rsquo;t cry wolf.</p>
+    </div>
+  </section>
+
+  <!-- ── 06 Compare ───────────────────────────────────── -->
   <section class="doc-section" id="compare">
-    <div class="rail"><span class="rail-no">05</span><span class="rail-label">Compare</span></div>
+    <div class="rail"><span class="rail-no">06</span><span class="rail-label">Compare</span></div>
     <div class="doc-body">
       <h2>Verification, next to detection.</h2>
       <table class="compare">
@@ -354,9 +412,9 @@
     </div>
   </section>
 
-  <!-- ── 06 Deployment ────────────────────────────────── -->
+  <!-- ── 07 Deployment ────────────────────────────────── -->
   <section class="doc-section" id="deployment">
-    <div class="rail"><span class="rail-no">06</span><span class="rail-label">Deployment</span></div>
+    <div class="rail"><span class="rail-no">07</span><span class="rail-label">Deployment</span></div>
     <div class="doc-body">
       <h2>One binary. Your hosts. Nothing else.</h2>
       <p>A static daemon, a companion responder, and a systemd unit. Linux kernel 5.8 or
@@ -371,9 +429,9 @@
     </div>
   </section>
 
-  <!-- ── 07 FAQ ───────────────────────────────────────── -->
+  <!-- ── 08 FAQ ───────────────────────────────────────── -->
   <section class="doc-section" id="faq">
-    <div class="rail"><span class="rail-no">07</span><span class="rail-label">FAQ</span></div>
+    <div class="rail"><span class="rail-no">08</span><span class="rail-label">FAQ</span></div>
     <div class="doc-body">
       <h2>Questions, answered plainly.</h2>
       <dl class="faq">
@@ -405,9 +463,9 @@
     </div>
   </section>
 
-  <!-- ── 08 Contact ───────────────────────────────────── -->
+  <!-- ── 09 Contact ───────────────────────────────────── -->
   <section class="doc-section contact" id="contact">
-    <div class="rail"><span class="rail-no">08</span><span class="rail-label">Contact</span></div>
+    <div class="rail"><span class="rail-no">09</span><span class="rail-label">Contact</span></div>
     <div class="doc-body">
       <h2>Book a walkthrough.</h2>
       <p>Thirty minutes, your questions, a live daemon. We&rsquo;ll write a rule for your
