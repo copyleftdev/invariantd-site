@@ -1,5 +1,7 @@
 # invariantd-site
 
+[![Tip my tokens](https://tokentip.to/badge/copyleftdev.svg?logo=1)](https://tokentip.to/@copyleftdev)
+
 Marketing site for [invariantd.com](https://invariantd.com) — the runtime
 verification engine for Linux infrastructure.
 
